@@ -1,0 +1,13 @@
+# Edit these for your system
+Set(inputdir '/home/cpatrick/Source/BatchmakeCondorExamples/in')
+Set(outputdir '/home/cpatrick/Source/BatchmakeCondorExamples/out')
+
+MakeDirectory(${outputdir})
+
+ListFileInDir(files ${inputdir})
+
+foreach(i ${files})
+
+echo(${i})
+
+endforeach(files)
