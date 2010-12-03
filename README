@@ -1,1 +1,5 @@
 This is for outlining some condor submission examples using batchmake.
+
+BMLS.bms and bmls.py combine to perform a simple ls via batchmake's echo. This
+doesn't really test anything other than condor job submission and batchmake
+condor script creation.
