@@ -50,7 +50,7 @@ def main():
   
   # Create the condor submit script
   sp.call([condorSubmitDag,
-           '-no_submit', condorScriptName])
+           '-no_submit', '-f', condorScriptName])
   
   # Submit the script to the condor grid
   sp.call([condorSubmit, condorSubmitName])
