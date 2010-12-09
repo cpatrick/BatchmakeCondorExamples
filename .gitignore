@@ -2,3 +2,4 @@ working
 out
 *.out
 *.dagjob.*
+*.pyc
