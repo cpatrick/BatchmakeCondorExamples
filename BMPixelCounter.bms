@@ -1,0 +1,14 @@
+# Edit these for your system
+Set(inputdir '/home/cpatrick/Source/BatchmakeCondorExamples/working/spheres')
+Set(outputdir '/home/cpatrick/Source/BatchmakeCondorExamples/out')
+
+SetApp( pixelcounter @PixelCounter )
+
+ListFileInDir(files ${inputdir})
+
+foreach(i ${files})
+  Set(input ${inputdir}/${i})
+  SetAppOption( pixelcounter.filename ${input} )  
+  Run(output ${pixelcounter})
+endforeach()
+

@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 
-# Lib imports
 import subprocess as sp
 import os
-
-# Configuration
 from config import *
 
-scriptBase = 'BMLS'
+scriptBase = 'BMPixelCounter'
 scriptName = baseDir + scriptBase + '.bms'
 condorScriptName = workingDir + scriptBase + '.dagjob'
+sphereDir = workingDir + 'spheres/'
 condorSubmitName = condorScriptName + '.condor.sub'
 
 def main():
@@ -19,8 +17,21 @@ def main():
     print "Creating working directory."
   except OSError:
     print "Working directory present."
+
+  try:
+    os.mkdir(sphereDir)
+    print "Creating sphere directory."
+  except OSError:
+    print "Sphere directory present."
+
+  if len(os.listdir(sphereDir)) != 15:
+    print "Generating spheres."
+    os.chdir(sphereDir)
+    sp.call([generateSpheres])
+  else:
+    print "Spheres present."
+
   os.chdir(workingDir)
-  
 
   # Create wrapper for bmGridSend
   sp.call([batchmake, 
@@ -32,6 +43,12 @@ def main():
   sp.call([batchmake, 
            '-ap', batchmakeAppDir, 
            '-a', bmGridStore, 
+           '-p', workingDir])
+
+  # Create wrapper for PixelCounter
+  sp.call([batchmake, 
+           '-ap', batchmakeAppDir, 
+           '-a', pixelCounter,
            '-p', workingDir])
 
   # Create the condor scripts
